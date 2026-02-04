@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, toRaw } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { dealApi, type Deal } from '../api/deal'
 import { customerApi, type Customer } from '../api/customer'
 import type { FormInstance } from 'ant-design-vue';

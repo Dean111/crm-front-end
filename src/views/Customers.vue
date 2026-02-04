@@ -28,7 +28,7 @@
         :columns="columns"
         :data-source="customers"
         :loading="loading"
-        :row-key="record => record.id"
+        :row-key="(record: Customer) => record.id"
         :pagination="{ pageSize: 10 }"
       >
         <template #bodyCell="{ column, record }">

@@ -26,7 +26,7 @@
             class="column-content"
             :animation="200"
             ghost-class="ghost-card"
-            @change="(e) => handleDragChange(e, column.stage)"
+            @change="(e: any) => handleDragChange(e, column.stage)"
           >
             <template #item="{ element: deal }">
               <a-card 

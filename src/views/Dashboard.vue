@@ -199,7 +199,7 @@ const initCharts = () => {
                         color: '#1890ff',
                         fontWeight: 'bold',
                     },
-                    formatter: ({ percent }) => `${((percent || 0) * 100).toFixed(0)}%`,
+                    formatter: (datum: any) => `${((datum?.percent || 0) * 100).toFixed(0)}%`,
                 },
             },
         });

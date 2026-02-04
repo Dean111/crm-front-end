@@ -51,7 +51,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import * as echarts from 'echarts'
-import { dealApi } from '../api/deal'
+// import { dealApi } from '../api/deal' // 暂未使用
 
 const timeRange = ref('30days')
 const loading = ref(false)
@@ -75,7 +75,7 @@ const initCharts = () => {
   if (barChartRef.value) barChart = echarts.init(barChartRef.value)
 }
 
-const renderCharts = (data: any[]) => {
+const renderCharts = (_data: any[]) => {
   // 1. 漏斗图数据处理
   const funnelData = [
     { value: 100, name: '资格审查' },   // QUALIFICATION

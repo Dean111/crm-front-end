@@ -19,12 +19,13 @@ export const authApi = {
     login: async (credentials: { username: string; password: string }): Promise<LoginResponse> => {
         try {
             console.log('Sending login request:', credentials)
-            const response = await axios.post('/auth/login', credentials)
+            const response = await axios.post<LoginResponse>('/auth/login', credentials)
             console.log('Login response:', response)
             if (!response) {
                 throw new Error('No data received from server')
             }
-            return response as LoginResponse
+            // axios 拦截器已经返回了 response.data，所以这里 response 就是 LoginResponse
+            return response as unknown as LoginResponse
         } catch (error: any) {
             console.error('Login error in api:', error)
             if (error.response?.data) {
