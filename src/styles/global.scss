@@ -1,0 +1,204 @@
+@use './variables.scss' as *;
+
+// Google Fonts Import
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Reset & Base Styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: $font-body;
+    font-size: $font-size-body;
+    color: $black-primary;
+    background-color: $bg-page;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+    height: 100%;
+}
+
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-heading;
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: $font-size-title;
+    letter-spacing: -1px;
+}
+
+h2 {
+    font-size: $font-size-subtitle;
+    letter-spacing: -0.5px;
+}
+
+h3 {
+    font-size: $font-size-heading;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: $font-body;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+input {
+    font-family: $font-body;
+    border: none;
+    outline: none;
+}
+
+// Utility Classes
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// Button Styles
+.btn {
+    padding: 16px 32px;
+    font-size: $font-size-body;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.5px;
+    transition: all $transition-base;
+    cursor: pointer;
+    border: none;
+
+    &-primary {
+        background-color: $red-primary;
+        color: #FFFFFF;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+
+    &-secondary {
+        background-color: transparent;
+        color: $black-primary;
+        border: 1px solid $border;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    }
+
+    &-full {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+// Input Styles
+.input-field {
+    padding: 16px 20px;
+    border: 1px solid $border;
+    font-size: $font-size-body;
+    width: 100%;
+    transition: border-color $transition-base;
+
+    &:focus {
+        border-color: $blue-tech;
+    }
+
+    &::placeholder {
+        color: $gray-600;
+    }
+}
+
+// Card Styles
+.card {
+    background: $bg-page;
+    border: 1px solid $border;
+    padding: $spacing-3xl;
+}
+
+// Label Styles
+.label {
+    font-size: $font-size-label;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.8px;
+    color: $gray-600;
+    text-transform: uppercase;
+    margin-bottom: $spacing-xs;
+    display: block;
+}
+
+// Status Badge
+.badge {
+    padding: 6px 12px;
+    font-size: $font-size-label;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.5px;
+    display: inline-block;
+
+    &-vip {
+        background-color: $red-primary;
+        color: #FFFFFF;
+    }
+
+    &-active {
+        background-color: $green-success;
+        color: #FFFFFF;
+    }
+}
+
+// Scrollbar Styles
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: $bg-page;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $gray-500;
+    border-radius: $radius-sm;
+
+    &:hover {
+        background: $gray-600;
+    }
+}

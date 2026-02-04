@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API 配置检查</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1890ff;
+            margin-top: 0;
+        }
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .success {
+            background: #f6ffed;
+            border: 1px solid #b7eb8f;
+            color: #52c41a;
+        }
+        .error {
+            background: #fff2f0;
+            border: 1px solid #ffccc7;
+            color: #ff4d4f;
+        }
+        .info {
+            background: #e6f7ff;
+            border: 1px solid #91d5ff;
+            color: #1890ff;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            background: #1890ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #40a9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔍 API 配置检查</h1>
+        
+        <div id="result"></div>
+        
+        <button onclick="testBackend()">测试后端连接</button>
+    </div>
+
+    <script type="module">
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+        
+        const resultDiv = document.getElementById('result');
+        
+        // 显示当前配置
+        let html = `
+            <div class="info">
+                <strong>当前 API 地址：</strong><br>
+                <code>${API_BASE_URL}</code>
+            </div>
+        `;
+        
+        // 检查配置是否正确
+        if (API_BASE_URL.includes('localhost')) {
+            html += `
+                <div class="error">
+                    <strong>❌ 配置错误！</strong><br>
+                    API 地址仍然是 localhost，手机无法访问。<br>
+                    <br>
+                    <strong>解决方案：</strong><br>
+                    1. 确认 .env 文件中配置了正确的 IP<br>
+                    2. 完全停止 Vite (Ctrl+C)<br>
+                    3. 重新运行 npm run dev
+                </div>
+            `;
+        } else if (API_BASE_URL.includes('192.168.103.99')) {
+            html += `
+                <div class="success">
+                    <strong>✅ 配置正确！</strong><br>
+                    API 地址已配置为内网 IP，手机可以访问。
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="info">
+                    <strong>ℹ️ 自定义配置</strong><br>
+                    请确认这是您期望的 API 地址。
+                </div>
+            `;
+        }
+        
+        resultDiv.innerHTML = html;
+        
+        // 测试后端连接
+        window.testBackend = async function() {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'info';
+            testDiv.innerHTML = '<strong>⏳ 正在测试后端连接...</strong>';
+            resultDiv.appendChild(testDiv);
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: 'test',
+                        password: 'test'
+                    })
+                });
+                
+                testDiv.className = 'success';
+                testDiv.innerHTML = `
+                    <strong>✅ 后端连接成功！</strong><br>
+                    状态码: ${response.status}<br>
+                    后端可以正常访问。
+                `;
+            } catch (error) {
+                testDiv.className = 'error';
+                testDiv.innerHTML = `
+                    <strong>❌ 后端连接失败！</strong><br>
+                    错误: ${error.message}<br>
+                    <br>
+                    <strong>可能的原因：</strong><br>
+                    1. 后端服务未启动<br>
+                    2. 防火墙阻止了 8080 端口<br>
+                    3. API 地址配置错误
+                `;
+            }
+        };
+    </script>
+</body>
+</html>
