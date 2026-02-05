@@ -96,8 +96,8 @@ const apiBaseUrl = computed(() => import.meta.env.VITE_API_BASE_URL || 'http://l
 console.log('🔗 Current API Base URL:', apiBaseUrl.value)
 
 const formState = reactive({
-  email: '',
-  password: '',
+  email: 'admin',
+  password: 'password',
   remember: true
 })
 
